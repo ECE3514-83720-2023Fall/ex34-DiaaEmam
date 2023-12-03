@@ -254,10 +254,10 @@ BinaryTree<TreeItemType, FunctionType> BinaryTree<TreeItemType, FunctionType>::m
         return BinaryTree(); // Return an empty tree for an empty array or invalid range. 
     }
 
-    int mid = (low + high) / 2; 
-    BinaryTree<TreeItemType, FunctionType> tree(array[mid]); 
-    tree.attachLeftSubtree(makeBinaryTree(array, low, mid - 1)); 
-    tree.attachRightSubtree(makeBinaryTree(array, mid + 1, high)); 
+    int middle = (low + high) / 2;  
+    BinaryTree<TreeItemType, FunctionType> tree(array[middle]);  
+    tree.attachLeftSubtree(makeBinaryTree(array, low, middle - 1));  
+    tree.attachRightSubtree(makeBinaryTree(array, middle + 1, high));  
 
     return tree; 
 }
