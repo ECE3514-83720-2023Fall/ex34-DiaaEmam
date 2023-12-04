@@ -250,14 +250,29 @@ template <typename TreeItemType, typename FunctionType>
 BinaryTree<TreeItemType, FunctionType> BinaryTree<TreeItemType, FunctionType>::makeBinaryTree(const TreeItemType *array, int low, int high) {
     std::cout << "low, high = " << low << " " << high << std::endl;
 
-    if (low > high) { 
-        return BinaryTree(); // Return an empty tree for an empty array or invalid range. 
+    if (low > high) {
+        root = nullptr;
+        return *this; // Return an empty tree for an empty array or invalid range. 
     }
 
-    int middle = (low + high) / 2;  
-    BinaryTree<TreeItemType, FunctionType> tree(array[middle]);  
-    tree.attachLeftSubtree(makeBinaryTree(array, low, middle - 1));  
-    tree.attachRightSubtree(makeBinaryTree(array, middle + 1, high));  
+    if (low == high) {
+        root = new NodeType(array[low]);
+        return *this; // Return an empty tree for an empty array or invalid range. 
+    }
 
-    return tree; 
+    int middle = low + (high - low) / 2;
+    //BinaryTree<TreeItemType, FunctionType> tree(array[middle]);  
+    
+    BinaryTree leftTree;
+    leftTree.makeBinaryTree(array, low, middle - 1);
+
+    BinaryTree rightTree;
+    rightTree.makeBinaryTree(array, middle + 1, high);
+    
+    root = new NodeType(array[middle]);
+
+    attachLeftSubtree(leftTree);  
+    attachRightSubtree(rightTree);  
+
+    return *this; 
 }
